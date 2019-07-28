@@ -19,23 +19,27 @@
             android:layout_height="wrap_content"
             android:text="Clear"
             android:textAllCaps="false"
+            android:onClick="claer"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Undo"
             android:textAllCaps="false"
+            android:onClick="undo"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Redo"
             android:textAllCaps="false"
+            android:onClick="redo"
             />
 
     </LinearLayout>
 
     <tw.org.iii.appps.brad08.MyView
+        android:id="@+id/myView"
         android:layout_width="0dp"
         android:layout_weight="7"
         android:background="#ff0"

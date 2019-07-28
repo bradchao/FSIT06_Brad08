@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class MyView extends View {
-    private LinkedList<LinkedList<HashMap<String,Float>>> lines;
+    private LinkedList<LinkedList<HashMap<String,Float>>> lines, recycler;
     private Paint paint;
 
     public MyView(Context context, AttributeSet attrs) {
@@ -21,6 +21,7 @@ public class MyView extends View {
         setBackgroundColor(Color.GREEN);
 
         lines = new LinkedList<>();
+        recycler = new LinkedList<>();
 
         paint = new Paint();
         paint.setStrokeWidth(10);
@@ -57,6 +58,7 @@ public class MyView extends View {
         point.put("x", event.getX()); point.put("y", event.getY());
 
         if (event.getAction() == MotionEvent.ACTION_DOWN){
+            recycler.clear();
             LinkedList<HashMap<String,Float>> line = new LinkedList<>();
             line.add(point);
             lines.add(line);
@@ -67,6 +69,25 @@ public class MyView extends View {
         invalidate();   // repaint
 
         return true; //super.onTouchEvent(event);
+    }
+
+    public void clearView(){
+        lines.clear();
+        invalidate();
+    }
+
+    public void undo(){
+        if (lines.size()>0){
+            recycler.add(lines.removeLast());
+            invalidate();
+        }
+    }
+
+    public void redo(){
+        if (recycler.size()>0){
+            lines.add(recycler.removeLast());
+            invalidate();
+        }
     }
 
 }
